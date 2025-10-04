@@ -7,6 +7,8 @@ import GSAPFrom from './components/GSAPFrom.tsx'
 import GSAPTo from './components/GSAPTo.tsx'
 import GSAPTimeline from './components/GSAPTimeline.tsx'
 import GSAPFromTo from './components/GSAPFromTo.tsx'
+import GSAPStagger from './components/GSAPStagger.tsx'
+import GSAPTargetWithRefs from './components/GSAPTargetWithRefs.tsx'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
@@ -16,6 +18,8 @@ createRoot(document.getElementById('root')!).render(
       <Route path="/gsap-to" element={<GSAPTo />} />
       <Route path="/gsap-timeline" element={<GSAPTimeline />} />
       <Route path="/gsap-from-to" element={<GSAPFromTo />} />
+      <Route path="/gsap-target-with-refs" element={<GSAPTargetWithRefs />} />
+      <Route path="/gsap-stagger" element={<GSAPStagger />} />
     </Routes>
     </BrowserRouter>
   </StrictMode>,
