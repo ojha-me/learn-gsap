@@ -7,6 +7,7 @@ const navigate = useNavigate()
       <button className="p-2 border border-black w-1/2" onClick={() => navigate('/gsap-to')}>GSAP To</button>
       <button className="p-2 border border-black w-1/2" onClick={() => navigate('/gsap-from')}>GSAP From</button>
       <button className="p-2 border border-black w-1/2" onClick={() => navigate('/gsap-timeline')}>GSAP Timeline</button>
+      <button className="p-2 border border-black w-1/2" onClick={() => navigate('/gsap-from-to')}>GSAP From To</button>
     </div>
   )
 }
