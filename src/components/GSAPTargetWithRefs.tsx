@@ -4,31 +4,77 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const GSAPTargetWithRefs = () => {
-    const navigate = useNavigate()
-    const boxRef = useRef<HTMLDivElement>(null)
-    const circleRef = useRef<HTMLDivElement>(null)
+  const navigate = useNavigate();
+  const boxRef = useRef<HTMLDivElement>(null);
+  const circleRef = useRef<HTMLDivElement>(null);
 
-    useGSAP(() => {
-        gsap.to(boxRef.current, {yoyo: true, repeat: -1, duration: 1, x: 200})
-        gsap.fromTo(circleRef.current, { x: 100, opacity: 0}, { x: 500, y: 500, opacity: 1, rotate:270, yoyo: true, repeat: -1})
-    })
+  useGSAP(() => {
+    // Using ref for direct element access
+    gsap.to(boxRef.current, {
+      x: 200,
+      rotation: 360,
+      duration: 2,
+      repeat: -1,
+      yoyo: true,
+      ease: "power1.inOut"
+    });
+
+    // Using ref for a different animation
+    gsap.to(circleRef.current, {
+      y: 100,
+      scale: 1.5,
+      duration: 1.5,
+      repeat: -1,
+      yoyo: true,
+      ease: "bounce.out"
+    });
+  });
 
   return (
-    <>
-    <button className="p-2 border border-black ml-[25%]" onClick={() => navigate('/')} >Home</button>
-    <div>GSAPTargetWithRefs</div>
-    <p>you can target an element with the classnames like .box or #circle</p>
-    <p>but, multiple elements can have the same classname, and gsap still has to search throught the dom for the selector.</p>
-    <p>so, a more React.y way is to use refs</p>
-    
-    <div ref={boxRef} className="box w-[100px] h-[100px] bg-red-500"></div>
-    {/*  Not sure why the tailwind rounded property is not working, for now using inline style this is primarily a gsap project*/}
-    {/* still super weird though, something probably is overriding the tailwind property */}
-    <div ref={circleRef} style={{borderRadius: '100%'}} className="circle w-[100px] h-[100px] bg-blue-500"></div>
-    
-    </>
-    
-  )
-}
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-8">
+      <button
+        className="p-2 border border-black bg-white rounded-md hover:bg-gray-100 transition-colors"
+        onClick={() => navigate('/')}
+      >
+        Home
+      </button>
 
-export default GSAPTargetWithRefs
+      <div className="max-w-2xl mx-auto mt-8">
+        <h1 className="text-3xl font-bold mb-6 text-gray-800">GSAP with Refs</h1>
+        
+        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+          <h2 className="text-xl font-semibold mb-4 text-gray-700">Using Refs with GSAP:</h2>
+          <ul className="space-y-3 text-gray-600">
+            <li className="flex items-start">
+              <span className="font-mono bg-gray-100 px-2 py-1 rounded mr-2">useRef()</span>
+              <span>Create a direct reference to DOM elements</span>
+            </li>
+            <li className="flex items-start">
+              <span className="font-mono bg-gray-100 px-2 py-1 rounded mr-2">ref.current</span>
+              <span>Access the actual DOM element</span>
+            </li>
+            <li className="flex items-start">
+              <span className="font-mono bg-gray-100 px-2 py-1 rounded mr-2">Performance</span>
+              <span>Faster than querying with class/id selectors</span>
+            </li>
+          </ul>
+        </div>
+
+        <div className="flex justify-center items-center h-[400px] bg-white rounded-lg shadow-md p-6 relative">
+          <div className="space-y-12">
+            <div 
+              ref={boxRef} 
+              className="w-32 h-32 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg"
+            ></div>
+            <div 
+              ref={circleRef} 
+              className="w-32 h-32 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full shadow-lg"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default GSAPTargetWithRefs;
